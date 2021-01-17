@@ -52,7 +52,6 @@ export const drawBarplot = (data) => {
 	const dark = data.filter((Pokemon) => Pokemon.type_1 === 15);
 	const steel = data.filter((Pokemon) => Pokemon.type_1 === 16);
 	const fairy = data.filter((Pokemon) => Pokemon.type_1 === 17);
-	console.log(flying);
 
 	const type_distribution = [
 		{
@@ -131,8 +130,6 @@ export const drawBarplot = (data) => {
 		},
 	];
 
-	console.log(type_distribution);
-
 	var margin = { top: 30, right: 30, bottom: 70, left: 60 };
 	var width = 920 - margin.left - margin.right;
 	var height = 400 - margin.top - margin.bottom;
@@ -146,7 +143,9 @@ export const drawBarplot = (data) => {
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .on('mouseout', () => div.transition().duration(50).style('opacity', 0));
+
 
 	// sort data
 	type_distribution.sort(function (b, a) {
@@ -198,9 +197,8 @@ export const drawBarplot = (data) => {
 			div.transition().duration(200).style('opacity', 1);
 			div.html(`${d.amount} Pokemon`)
 				.style('left', () => {
-					return d3.event.pageX + 'px';
+					return d3.event.pageX - 40 + 'px';
 				})
-				.style('top', d3.event.pageY + 'px');
+				.style('top', d3.event.pageY - 40 + 'px');
 		})
-		.on('mouseout', () => div.transition().style('opacity', 0));
 };

@@ -10,7 +10,7 @@ body{
 }
 
 .tooltip {
-
+    position: absolute;
     padding: 5px;
     background-color: white;
     border-radius: 10px;
