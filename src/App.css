@@ -9,6 +9,10 @@ body{
 	position: relative;
 }
 
+#bubblePlot{
+    position: relative;
+}
+
 .tooltip {
     position: absolute;
     padding: 5px;
@@ -22,5 +26,10 @@ body{
 .axisWhite path,
 .axisWhite line{
     stroke: white;
+}
+
+.mid{
+    display: flex;
+    flex-direction: row;
 }
 

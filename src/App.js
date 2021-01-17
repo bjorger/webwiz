@@ -4,7 +4,8 @@ import * as d3 from 'd3';
 import data from './Pokemon.csv';
 import { drawBarplot } from './barplot';
 import { drawDonutChart } from './donutChart';
-import { drawChordDiagram } from './chordDiagram'
+import { drawChordDiagram } from './chordDiagram';
+import { drawBubbleplot } from './drawBubblePlot';
 
 export const App = () => {
 	/**
@@ -15,20 +16,11 @@ export const App = () => {
 	 * @property {Number} total
 	 * @property {Number} generation
 	 * @property {Number} legendary
+	 * @property {Number} defense
+	 * @property {Number} attack
+	 * @property {Number} hp
 	 */
 
-	/*
-	const calc_median = (input) => {
-		const test = [];
-		input.forEach((data) => test.push(data.income));
-		let unique = [...new Set(test)];
-		unique.sort();
-		if (unique.length % 2) {
-			return unique[Math.floor(unique.length / 2)];
-		} else {
-			return (unique[Math.floor(unique.length / 2)] + unique[Math.floor(unique.length / 2) - 1]) / 2;
-		}
-	};*/
 	useEffect(() => {
 		d3.csv(data, (data) => {
 			data.forEach((d) => {
@@ -44,16 +36,22 @@ export const App = () => {
 					}
 				});
 			});
+
 			drawDonutChart(data);
 			drawBarplot(data);
 			drawChordDiagram(data);
+			drawBubbleplot(data);
 		});
 	}, []);
 
 	return (
 		<div className="App">
 			<div id="barChart"></div>
-			<div id="pieChart"></div>
+			<div className="mid">
+				<div id="pieChart"></div>
+				<div id="bubblePlot"></div>
+			</div>
+
 			<div id="chordDiagram"></div>
 		</div>
 	);

@@ -27,6 +27,8 @@ const createChordMatrix = (data) => {
  * @param {Pokemon[]} data
  */
 export const drawChordDiagram = (data) => {
+	console.log(data);
+
 	const type_color_scheme = [
 		'#A8A77A',
 		'#EE8130',
@@ -74,7 +76,6 @@ export const drawChordDiagram = (data) => {
 	 * Fire - Water - Electric ...
 	 */
 	const type_matrix = createChordMatrix(data);
-	console.log(type_matrix);
 	var margin = { left: 90, top: 90, right: 90, bottom: 90 };
 	var width = 1000 - margin.left - margin.right; // more flexibility: Math.min(window.innerWidth, 1000)
 	var height = 700 - margin.top - margin.bottom; // same: Math.min(window.innerWidth, 1000)
