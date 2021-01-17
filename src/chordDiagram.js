@@ -27,8 +27,6 @@ const createChordMatrix = (data) => {
  * @param {Pokemon[]} data
  */
 export const drawChordDiagram = (data) => {
-	console.log(data);
-
 	const type_color_scheme = [
 		'#A8A77A',
 		'#EE8130',
@@ -174,6 +172,7 @@ export const drawChordDiagram = (data) => {
 		.data(type_names)
 		.enter()
 		.append('text')
+		.attr('class', 'chordLabelText')
 		.attr('x', 340)
 		.attr('y', function (d, i) {
 			return -230 + i * 25;

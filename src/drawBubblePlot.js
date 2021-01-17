@@ -58,7 +58,6 @@ export const drawBubbleplot = (data) => {
 	];
 
 	const legendary_pokemon = data.filter((Pokemon) => Pokemon.legendary === 1);
-	console.log(legendary_pokemon);
 	// set the dimensions and margins of the graph
 	var margin = { top: 10, right: 20, bottom: 30, left: 50 };
 	var width = 500 - margin.left - margin.right;
@@ -81,7 +80,7 @@ export const drawBubbleplot = (data) => {
 		tooltip.style('left', d3.mouse(this)[0] + 30 + 'px').style('top', d3.mouse(this)[1] + 30 + 'px');
 	};
 	var hideTooltip = function (d) {
-		tooltip.transition().duration(200).style('opacity', 0);
+		tooltip.transition().duration(50).style('opacity', 0);
 	};
 
 	// append the svg object to the body of the page
@@ -97,7 +96,7 @@ export const drawBubbleplot = (data) => {
 	// Add X axis
 	// Lowest av = 50
 	// Highest attack value = 190
-	var x = d3.scaleLinear().domain([40, 220]).range([0, width]);
+	var x = d3.scaleLinear().domain([30, 220]).range([0, width]);
 	svg.append('g')
 		.attr('transform', 'translate(0,' + height + ')')
 		.call(d3.axisBottom(x))
@@ -108,11 +107,11 @@ export const drawBubbleplot = (data) => {
 	// Add Y axis
 	// Highest def val = 200
 	// Lowest defense val = 20
-	var y = d3.scaleLinear().domain([40, 220]).range([height, 0]);
+	var y = d3.scaleLinear().domain([0, 220]).range([height, 0]);
 	svg.append('g').call(d3.axisLeft(y)).attr('class', 'axisWhite').selectAll('text').attr('fill', 'white');
 
 	// Add a scale for bubble size
-	var z = d3.scaleLinear().domain([0, 150]).range([4, 50]);
+	var z = d3.scaleLinear().domain([0, 150]).range([4, 20]);
 
 	// Add dots
 	svg.append('g')
@@ -127,9 +126,7 @@ export const drawBubbleplot = (data) => {
 			return y(d.defense);
 		})
 		.attr('r', function (d) {
-			console.log(d);
-
-			return z(d.hp - 80);
+			return z(d.hp);
 		})
 		.style('fill', function (d) {
 			return type_color_scheme[d.type_1];
