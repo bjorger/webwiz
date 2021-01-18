@@ -79,6 +79,10 @@ body {
 	box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.73);
 }
 
+#pieChart .donutArc{
+	cursor: pointer;
+}
+
 .charizard {
 	position: absolute;
 	bottom: 50px;

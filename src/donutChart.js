@@ -11,6 +11,7 @@ import * as d3 from 'd3';
  */
 
 var old_data = [];
+var old_data_mod = [];
 
 /**
  * @param {Pokemon[]} data
@@ -106,6 +107,7 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.data(data_ready)
 			.enter()
 			.append('path')
+			.attr('class', 'donutArc')
 			.attr('d', arc)
 			.attr('fill', function (d) {
 				return color(d.data.key);
@@ -169,10 +171,14 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.attr('fill', 'white');
 	};
 	if (primaryType !== undefined) {
-		old_data = data.filter((Pokemon) => Pokemon.type_1 === primaryType)
-		update(old_data);
+		var new_data = data.filter((Pokemon) => Pokemon.type_1 === primaryType);
+		if (new_data.length !== old_data_mod.length) {
+			update(new_data);
+		}
+		old_data_mod = new_data;
 	} else {
 		if (data.length !== old_data.length) {
+			console.log('hallo');
 			update(data);
 		}
 		old_data = data;
