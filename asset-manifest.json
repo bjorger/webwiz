@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/webwiz/static/css/main.cc31a684.chunk.css",
-    "main.js": "/webwiz/static/js/main.e4ede1a9.chunk.js",
-    "main.js.map": "/webwiz/static/js/main.e4ede1a9.chunk.js.map",
+    "main.css": "/webwiz/static/css/main.18a57597.chunk.css",
+    "main.js": "/webwiz/static/js/main.2c72c4bb.chunk.js",
+    "main.js.map": "/webwiz/static/js/main.2c72c4bb.chunk.js.map",
     "runtime-main.js": "/webwiz/static/js/runtime-main.a272643d.js",
     "runtime-main.js.map": "/webwiz/static/js/runtime-main.a272643d.js.map",
     "static/js/2.769162dd.chunk.js": "/webwiz/static/js/2.769162dd.chunk.js",
     "static/js/2.769162dd.chunk.js.map": "/webwiz/static/js/2.769162dd.chunk.js.map",
     "index.html": "/webwiz/index.html",
-    "static/css/main.cc31a684.chunk.css.map": "/webwiz/static/css/main.cc31a684.chunk.css.map",
+    "static/css/main.18a57597.chunk.css.map": "/webwiz/static/css/main.18a57597.chunk.css.map",
     "static/js/2.769162dd.chunk.js.LICENSE.txt": "/webwiz/static/js/2.769162dd.chunk.js.LICENSE.txt",
     "static/media/Pokemon.8dbaf65e.csv": "/webwiz/static/media/Pokemon.8dbaf65e.csv",
     "static/media/charizard.9816fea6.png": "/webwiz/static/media/charizard.9816fea6.png",
@@ -17,7 +17,7 @@
   "entrypoints": [
     "static/js/runtime-main.a272643d.js",
     "static/js/2.769162dd.chunk.js",
-    "static/css/main.cc31a684.chunk.css",
-    "static/js/main.e4ede1a9.chunk.js"
+    "static/css/main.18a57597.chunk.css",
+    "static/js/main.2c72c4bb.chunk.js"
   ]
 }
