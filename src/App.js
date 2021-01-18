@@ -1,13 +1,17 @@
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import data from './Pokemon.csv';
 import { drawBarplot } from './barplot';
 import { drawDonutChart } from './donutChart';
 import { drawChordDiagram } from './chordDiagram';
-import { drawBubbleplot } from './drawBubblePlot';
+import { drawBubbleplot } from './bubblePlot';
+import logo from './pokemon.png';
+import charizard from './charizard.png';
 
 export const App = () => {
+	const [gen, setGen] = useState();
+
 	/**
 	 * @typedef {Object} Pokemon
 	 * @property {String} name
@@ -36,23 +40,42 @@ export const App = () => {
 					}
 				});
 			});
-
-			drawDonutChart(data);
-			drawBarplot(data);
-			drawChordDiagram(data);
-			drawBubbleplot(data);
+			drawDonutChart(data, setGen, gen);
+			drawBarplot(data, gen);
+			drawChordDiagram(data, gen);
+			drawBubbleplot(data, gen);
 		});
-	}, []);
+	}, [gen, setGen]);
 
 	return (
 		<div className="App">
-			<div id="barChart"></div>
-			<div className="mid">
-				<div id="pieChart"></div>
-				<div id="bubblePlot"></div>
+			<div className="header">
+				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo"/>
 			</div>
+			<div className="mid">
+				<div className="dashboardCard">
+					<div className="dashboardCardTitle">Distribution of Pokemon by Primary Type</div>
+					<div id="barChart"></div>
+				</div>
+				<div className="dashboardCard">
+					<div className="dashboardCardTitle">Distribution of Pokemon added in each Generation</div>
+					<div id="pieChart" style={{ paddingTop: '20px' }}></div>
+				</div>
+			</div>
+			<div className="mid">
+				<div className="dashboardCard" style={{ padding: '0 40px' }}>
+					<div className="dashboardCardTitle">Strength of Legendary Pokemon rated by HP, Atk, Def</div>
 
-			<div id="chordDiagram"></div>
+					<div id="bubblePlot" style={{ paddingTop: '40px' }}></div>
+				</div>
+				<div className="dashboardCard" style={{ width: '850px' }}>
+					<div className="dashboardCardTitle">Link between Primary and Secondary Type</div>
+					<div id="chordDiagram"></div>
+				</div>
+			</div>
+			<div className="charizard">
+				<img src={charizard} alt="charizard"/>
+			</div>
 		</div>
 	);
 };
