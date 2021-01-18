@@ -11,6 +11,7 @@ import charizard from './charizard.png';
 
 export const App = () => {
 	const [gen, setGen] = useState();
+	const [primaryType, setPrimaryType] = useState();
 
 	/**
 	 * @typedef {Object} Pokemon
@@ -40,17 +41,17 @@ export const App = () => {
 					}
 				});
 			});
-			drawDonutChart(data, setGen, gen);
-			drawBarplot(data, gen);
-			drawChordDiagram(data, gen);
+			drawDonutChart(data, setGen, gen, primaryType);
+			drawBarplot(data, gen, primaryType);
+			drawChordDiagram(data, gen, setPrimaryType, primaryType);
 			drawBubbleplot(data, gen);
 		});
-	}, [gen, setGen]);
+	}, [gen, setGen, primaryType, setPrimaryType]);
 
 	return (
 		<div className="App">
 			<div className="header">
-				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo"/>
+				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo" />
 			</div>
 			<div className="mid">
 				<div className="dashboardCard">
@@ -74,7 +75,7 @@ export const App = () => {
 				</div>
 			</div>
 			<div className="charizard">
-				<img src={charizard} alt="charizard"/>
+				<img src={charizard} alt="charizard" />
 			</div>
 		</div>
 	);

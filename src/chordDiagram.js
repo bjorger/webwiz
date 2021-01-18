@@ -26,7 +26,7 @@ const createChordMatrix = (data) => {
 /**
  * @param {Pokemon[]} data
  */
-export const drawChordDiagram = (data, gen) => {
+export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 	const type_color_scheme = [
 		'#A8A77A',
 		'#EE8130',
@@ -141,7 +141,14 @@ export const drawChordDiagram = (data, gen) => {
 			.append('g')
 			.attr('class', 'group')
 			.on('mouseover', fade())
-			.on('mouseout', fade());
+			.on('mouseout', fade())
+			.on('click', (d, i) => {
+				if (primaryType === i) {
+					setPrimaryType(undefined);
+				} else {
+					setPrimaryType(i);
+				}
+			});
 
 		outerArcs
 			.append('path')
@@ -168,7 +175,14 @@ export const drawChordDiagram = (data, gen) => {
 				return type_color_scheme[index];
 			})
 			.on('mouseover', fade())
-			.on('mouseout', fade());
+			.on('mouseout', fade())
+			.on('click', (d, i) => {
+				if (primaryType === i) {
+					setPrimaryType(undefined);
+				} else {
+					setPrimaryType(i);
+				}
+			});
 
 		// Add one dot in the legend for each name.
 		svg.selectAll('mylabels')
@@ -189,7 +203,14 @@ export const drawChordDiagram = (data, gen) => {
 			.attr('text-anchor', 'left')
 			.style('alignment-baseline', 'middle')
 			.on('mouseover', fade())
-			.on('mouseout', fade());
+			.on('mouseout', fade())
+			.on('click', (d, i) => {
+				if (primaryType === i) {
+					setPrimaryType(undefined);
+				} else {
+					setPrimaryType(i);
+				}
+			});
 
 		//Returns an event handler for fading a given chord group.
 		function fade() {

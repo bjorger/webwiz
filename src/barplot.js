@@ -10,11 +10,10 @@ import * as d3 from 'd3';
  * @property {Number} legendary
  */
 
-
 /**
  * @param {Pokemon[]} data
  */
-export const drawBarplot = (data, gen) => {
+export const drawBarplot = (data, gen, primaryType) => {
 	const type_color_scheme = {
 		Normal: '#A8A77A',
 		Fire: '#EE8130',
@@ -45,24 +44,64 @@ export const drawBarplot = (data, gen) => {
 	const update = (data) => {
 		d3.select('#barChart').selectAll('svg').remove();
 
-		const normal = data.filter((Pokemon) => Pokemon.type_1 === 0);
-		const fire = data.filter((Pokemon) => Pokemon.type_1 === 1);
-		const water = data.filter((Pokemon) => Pokemon.type_1 === 2);
-		const electric = data.filter((Pokemon) => Pokemon.type_1 === 3);
-		const grass = data.filter((Pokemon) => Pokemon.type_1 === 4);
-		const ice = data.filter((Pokemon) => Pokemon.type_1 === 5);
-		const fighting = data.filter((Pokemon) => Pokemon.type_1 === 6);
-		const poison = data.filter((Pokemon) => Pokemon.type_1 === 7);
-		const ground = data.filter((Pokemon) => Pokemon.type_1 === 8);
-		const flying = data.filter((Pokemon) => Pokemon.type_1 === 9);
-		const psychic = data.filter((Pokemon) => Pokemon.type_1 === 10);
-		const bug = data.filter((Pokemon) => Pokemon.type_1 === 11);
-		const rock = data.filter((Pokemon) => Pokemon.type_1 === 12);
-		const ghost = data.filter((Pokemon) => Pokemon.type_1 === 13);
-		const dragon = data.filter((Pokemon) => Pokemon.type_1 === 14);
-		const dark = data.filter((Pokemon) => Pokemon.type_1 === 15);
-		const steel = data.filter((Pokemon) => Pokemon.type_1 === 16);
-		const fairy = data.filter((Pokemon) => Pokemon.type_1 === 17);
+		var normal = [];
+		var fire = [];
+		var water = [];
+		var electric = [];
+		var grass = [];
+		var ice = [];
+		var fighting = [];
+		var poison = [];
+		var ground = [];
+		var flying = [];
+		var psychic = [];
+		var bug = [];
+		var rock = [];
+		var ghost = [];
+		var dragon = [];
+		var dark = [];
+		var steel = [];
+		var fairy = [];
+
+		if (primaryType !== undefined) {
+			normal = data.filter((Pokemon) => Pokemon.type_2 === 0);
+			fire = data.filter((Pokemon) => Pokemon.type_2 === 1);
+			water = data.filter((Pokemon) => Pokemon.type_2 === 2);
+			electric = data.filter((Pokemon) => Pokemon.type_2 === 3);
+			grass = data.filter((Pokemon) => Pokemon.type_2 === 4);
+			ice = data.filter((Pokemon) => Pokemon.type_2 === 5);
+			fighting = data.filter((Pokemon) => Pokemon.type_2 === 6);
+			poison = data.filter((Pokemon) => Pokemon.type_2 === 7);
+			ground = data.filter((Pokemon) => Pokemon.type_2 === 8);
+			flying = data.filter((Pokemon) => Pokemon.type_2 === 9);
+			psychic = data.filter((Pokemon) => Pokemon.type_2 === 10);
+			bug = data.filter((Pokemon) => Pokemon.type_2 === 11);
+			rock = data.filter((Pokemon) => Pokemon.type_2 === 12);
+			ghost = data.filter((Pokemon) => Pokemon.type_2 === 13);
+			dragon = data.filter((Pokemon) => Pokemon.type_2 === 14);
+			dark = data.filter((Pokemon) => Pokemon.type_2 === 15);
+			steel = data.filter((Pokemon) => Pokemon.type_2 === 16);
+			fairy = data.filter((Pokemon) => Pokemon.type_2 === 17);
+		} else {
+			normal = data.filter((Pokemon) => Pokemon.type_1 === 0);
+			fire = data.filter((Pokemon) => Pokemon.type_1 === 1);
+			water = data.filter((Pokemon) => Pokemon.type_1 === 2);
+			electric = data.filter((Pokemon) => Pokemon.type_1 === 3);
+			grass = data.filter((Pokemon) => Pokemon.type_1 === 4);
+			ice = data.filter((Pokemon) => Pokemon.type_1 === 5);
+			fighting = data.filter((Pokemon) => Pokemon.type_1 === 6);
+			poison = data.filter((Pokemon) => Pokemon.type_1 === 7);
+			ground = data.filter((Pokemon) => Pokemon.type_1 === 8);
+			flying = data.filter((Pokemon) => Pokemon.type_1 === 9);
+			psychic = data.filter((Pokemon) => Pokemon.type_1 === 10);
+			bug = data.filter((Pokemon) => Pokemon.type_1 === 11);
+			rock = data.filter((Pokemon) => Pokemon.type_1 === 12);
+			ghost = data.filter((Pokemon) => Pokemon.type_1 === 13);
+			dragon = data.filter((Pokemon) => Pokemon.type_1 === 14);
+			dark = data.filter((Pokemon) => Pokemon.type_1 === 15);
+			steel = data.filter((Pokemon) => Pokemon.type_1 === 16);
+			fairy = data.filter((Pokemon) => Pokemon.type_1 === 17);
+		}
 
 		const type_distribution = [
 			{
@@ -167,8 +206,7 @@ export const drawBarplot = (data, gen) => {
 			)
 			.padding(0.2);
 
-		svg
-			.append('g')
+		svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
 			.attr('class', 'axisWhite')
 			.call(d3.axisBottom(x))
@@ -180,18 +218,16 @@ export const drawBarplot = (data, gen) => {
 		// Add Y axis
 		var y = d3
 			.scaleLinear()
-			.domain([0, type_distribution[0].amount + 5])
+			.domain([0, type_distribution[0].amount])
 			.range([height, 0]);
-		svg
-			.append('g')
+		svg.append('g')
 			.attr('class', 'axisWhite barplotAxis')
 			.call(d3.axisLeft(y))
 			.selectAll('text')
 			.attr('fill', 'white');
 
 		// Bars
-		svg
-			.selectAll('mybar')
+		svg.selectAll('mybar')
 			.data(type_distribution)
 			.enter()
 			.append('rect')
@@ -223,8 +259,16 @@ export const drawBarplot = (data, gen) => {
 			.attr('height', (d) => height - y(d.amount))
 			.delay((d, i) => i * 100);
 	};
-	if (gen !== undefined) {
-		update(data.filter((Pokemon) => Pokemon.generation === gen));
+
+	if (primaryType !== undefined || gen !== undefined) {
+		var dataToDisplay = data;
+		if (primaryType !== undefined) {
+			dataToDisplay = dataToDisplay.filter((Pokemon) => Pokemon.type_1 === primaryType);
+		}
+		if (gen !== undefined) {
+			dataToDisplay = dataToDisplay.filter((Pokemon) => Pokemon.generation === gen);
+		}
+		update(dataToDisplay);
 	} else {
 		update(data);
 	}

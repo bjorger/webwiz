@@ -13,35 +13,43 @@ import * as d3 from 'd3';
 /**
  * @param {Pokemon[]} data
  */
-export const drawDonutChart = (data, setGen, gen) => {
-	const gen1 = data.filter((pokemon) => pokemon.generation === 0);
-	const gen2 = data.filter((pokemon) => pokemon.generation === 1);
-	const gen3 = data.filter((pokemon) => pokemon.generation === 2);
-	const gen4 = data.filter((pokemon) => pokemon.generation === 3);
-	const gen5 = data.filter((pokemon) => pokemon.generation === 4);
-	const gen6 = data.filter((pokemon) => pokemon.generation === 5);
-
-	const donut_color_scheme = ['#6390F0', '#A8A77A', '#7AC74C', '#F7D02C', '#A6B91A', '#735797'];
-
-	const generations = {
-		'Gen 1': gen1.length,
-		'Gen 2': gen2.length,
-		'Gen 3': gen3.length,
-		'Gen 4': gen4.length,
-		'Gen 5': gen5.length,
-		'Gen 6': gen6.length,
-	};
-
-	var width = 450;
-	var height = 350;
-	var margin = 40;
-
-	// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-	var radius = Math.min(width, 450) / 2 - margin;
-
-	const update = () => {
+export const drawDonutChart = (data, setGen, gen, primaryType) => {
+	const update = (data) => {
 		d3.select('#pieChart').selectAll('svg').remove();
+		const gen1 = data.filter((pokemon) => pokemon.generation === 0);
+		const gen2 = data.filter((pokemon) => pokemon.generation === 1);
+		const gen3 = data.filter((pokemon) => pokemon.generation === 2);
+		const gen4 = data.filter((pokemon) => pokemon.generation === 3);
+		const gen5 = data.filter((pokemon) => pokemon.generation === 4);
+		const gen6 = data.filter((pokemon) => pokemon.generation === 5);
 
+		const donut_color_scheme = ['#6390F0', '#A8A77A', '#7AC74C', '#F7D02C', '#A6B91A', '#735797'];
+
+		let generations = {
+			'Gen 1': gen1.length,
+			'Gen 2': gen2.length,
+			'Gen 3': gen3.length,
+			'Gen 4': gen4.length,
+			'Gen 5': gen5.length,
+			'Gen 6': gen6.length,
+		};
+
+		console.log(generations);
+
+		Object.keys(generations).forEach((key) => {
+			if (generations[key] === 0) {
+				delete generations[key];
+			}
+		});
+
+		console.log(generations);
+
+		var width = 450;
+		var height = 350;
+		var margin = 40;
+
+		// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+		var radius = Math.min(width, 450) / 2 - margin;
 		var svg = d3
 			.select('#pieChart')
 			.append('svg')
@@ -100,7 +108,6 @@ export const drawDonutChart = (data, setGen, gen) => {
 			.attr('fill', function (d) {
 				return color(d.data.key);
 			})
-			.style('opacity', 1)
 			.on('click', (d) => {
 				let currentGen = +d.data.key.replace(/^\D+/g, '') - 1;
 				// -1 because we take the string values -> Gen 1 is 0 etc..
@@ -110,7 +117,20 @@ export const drawDonutChart = (data, setGen, gen) => {
 					setGen(currentGen);
 				}
 				return;
-			});
+			})
+			.transition()
+			.delay(function (d, i) {
+				return i;
+			})
+			.duration(800)
+			.attrTween('d', function (d) {
+				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+				return function (t) {
+					d.endAngle = i(t);
+					return arc(d);
+				};
+			})
+			.style('opacity', 1);
 
 		// Now add the annotation. Use the centroid method to get the best coordinates
 		svg.selectAll('mySlices')
@@ -146,5 +166,11 @@ export const drawDonutChart = (data, setGen, gen) => {
 			.attr('font-weight', 'bold')
 			.attr('fill', 'white');
 	};
-	update();
+	if (primaryType !== undefined) {
+		var dataToDisplay = data;
+		dataToDisplay = dataToDisplay.filter((Pokemon) => Pokemon.type_1 === primaryType);
+		update(dataToDisplay);
+	} else {
+		update(data);
+	}
 };
