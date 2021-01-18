@@ -10,7 +10,7 @@ import * as d3 from 'd3';
  * @property {Number} legendary
  */
 
-var old_data = []
+var old_data = [];
 
 /**
  * @param {Pokemon[]} data
@@ -169,11 +169,12 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.attr('fill', 'white');
 	};
 	if (primaryType !== undefined) {
-		var dataToDisplay = data;
-		dataToDisplay = dataToDisplay.filter((Pokemon) => Pokemon.type_1 === primaryType);
-		update(dataToDisplay);
+		old_data = data.filter((Pokemon) => Pokemon.type_1 === primaryType)
+		update(old_data);
 	} else {
-		if (data.length !== old_data.length) update(data);
+		if (data.length !== old_data.length) {
+			update(data);
+		}
 		old_data = data;
 	}
 };

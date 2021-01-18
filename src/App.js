@@ -55,7 +55,7 @@ export const App = () => {
 			</div>
 			<div className="mid">
 				<div className="dashboardCard">
-					<div className="dashboardCardTitle">Distribution of Pokemon by Primary Type</div>
+					<div className="dashboardCardTitle">Distribution of Pokemon by Type</div>
 					<div id="barChart"></div>
 				</div>
 				<div className="dashboardCard">
