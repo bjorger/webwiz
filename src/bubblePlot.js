@@ -10,6 +10,8 @@ import * as d3 from 'd3';
  * @property {Number} legendary
  */
 
+var clicked = false;
+var old_data = [];
 /**
  *
  * @param {Pokemon[]} data
@@ -66,23 +68,23 @@ export const drawBubbleplot = (data, gen) => {
 		var height = 420 - margin.top - margin.bottom;
 
 		// -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
+
 		var showTooltip = function (d) {
-			tooltip.transition().duration(200);
-			tooltip
-				.style('opacity', 1)
-				.html(
-					`${d.name}<br/>Health: ${d.hp} <br/>Attack: ${d.attack}<br/>Defense: ${d.defense}<br/>Type: ${
-						type_names[d.type_1]
-					}${type_names[d.type_2] ? '/' + type_names[d.type_2] : ''}`
-				)
-				.style('left', d3.mouse(this)[0] + 30 + 'px')
-				.style('top', d3.mouse(this)[1] + 30 + 'px');
-		};
-		var moveTooltip = function (d) {
-			tooltip.style('left', d3.mouse(this)[0] + 30 + 'px').style('top', d3.mouse(this)[1] + 30 + 'px');
-		};
-		var hideTooltip = function (d) {
-			tooltip.transition().duration(50).style('opacity', 0);
+			if (clicked) {
+				tooltip.transition().duration(50).style('opacity', 0);
+			} else {
+				tooltip.transition().duration(200);
+				tooltip
+					.style('opacity', 1)
+					.html(
+						`${d.name}<br/>Health: ${d.hp} <br/>Attack: ${d.attack}<br/>Defense: ${d.defense}<br/>Type: ${
+							type_names[d.type_1]
+						}${type_names[d.type_2] ? '/' + type_names[d.type_2] : ''}`
+					)
+					.style('left', d3.mouse(this)[0] + 30 + 'px')
+					.style('top', d3.mouse(this)[1] + 30 + 'px');
+			}
+			clicked = !clicked;
 		};
 
 		// append the svg object to the body of the page
@@ -168,29 +170,21 @@ export const drawBubbleplot = (data, gen) => {
 			.style('opacity', '0.7')
 			.attr('stroke', 'white')
 			.style('stroke-width', '2px')
-			.on('mouseover', showTooltip)
-			.on('mousemove', moveTooltip)
-			.on('mouseleave', hideTooltip)
+			.on('click', showTooltip)
 			.transition()
 			.attr('r', (d) => z(d.hp))
 			.duration(1200);
 
 		// -1- Create a tooltip div that is hidden by default:
-		var tooltip = d3
-			.select('#bubblePlot')
-			.append('div')
-			.style('opacity', 0)
-			.attr('class', 'tooltip')
-			.style('background-color', 'black')
-			.style('border-radius', '5px')
-			.style('padding', '10px')
-			.style('color', 'white');
+		var tooltip = d3.select('#bubblePlot').append('div').style('opacity', 0).attr('class', 'tooltip');
 
 		// A function that updates the chart when the user zoom and thus new boundaries are available
 		function updateChart() {
 			// recover the new scale
 			var newX = d3.event.transform.rescaleX(x);
 			var newY = d3.event.transform.rescaleY(y);
+
+			console.log('updateChart');
 
 			xAxis.remove();
 			yAxis.remove();
@@ -220,9 +214,18 @@ export const drawBubbleplot = (data, gen) => {
 				});
 		}
 	};
+
 	if (gen !== undefined) {
 		update(data.filter((Pokemon) => Pokemon.generation === gen));
 	} else {
-		update(data);
+		if (data.length !== old_data.length) update(data);
+		old_data = data;
 	}
 };
+
+/*
+
+			.on('mouseover', showTooltip)
+			.on('mousemove', moveTooltip)
+			.on('mouseleave', hideTooltip)
+*/

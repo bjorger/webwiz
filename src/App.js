@@ -66,7 +66,6 @@ export const App = () => {
 			<div className="mid">
 				<div className="dashboardCard" style={{ padding: '0 40px' }}>
 					<div className="dashboardCardTitle">Strength of Legendary Pokemon rated by HP, Atk, Def</div>
-
 					<div id="bubblePlot" style={{ paddingTop: '40px' }}></div>
 				</div>
 				<div className="dashboardCard" style={{ width: '850px' }}>
