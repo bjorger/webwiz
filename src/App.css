@@ -10,6 +10,7 @@ body {
 }
 
 .App {
+	padding-top: 180px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -67,7 +68,46 @@ body {
 	padding: 10px 0;
 }
 
+.option1 {
+	top: 40px;
+	right: 200px;
+}
+
+.option2 {
+	top: 65px;
+	right: 224px;
+}
+
+.resetFilterBtn {
+	position: absolute;
+	right: 395px;
+	top: 100px;
+}
+
+.option{
+	padding: 3px 0;
+	color: white;
+	font-weight: bold;
+	position: absolute;
+
+}
+
+.resetFilterBtn button {
+	cursor: pointer;
+	padding: 5px;
+	background-color: #2c2c2c;
+	border: 1px solid white;
+	font-weight: bold;
+	width: 100px;
+	border-radius: 5px;
+	color: white;
+}
+
 .header {
+	position: absolute;
+	top: 0;
+	min-height: auto;
+	max-height: 1000px;
 	width: 100%;
 	background-color: #2c2c2c;
 	display: flex;
@@ -77,9 +117,10 @@ body {
 	-webkit-box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.73);
 	-moz-box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.73);
 	box-shadow: 10px 10px 5px -3px rgba(0, 0, 0, 0.73);
+	transition: 0.2s ease;
 }
 
-#pieChart .donutArc{
+#pieChart .donutArc {
 	cursor: pointer;
 }
 
@@ -100,5 +141,3 @@ body {
 	left: 0;
 	z-index: -1;
 }
-
-

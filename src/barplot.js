@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { type_names, type_name_color_scheme } from './types';
 
 /**
  * @typedef {Object} Pokemon
@@ -13,28 +14,7 @@ import * as d3 from 'd3';
 /**
  * @param {Pokemon[]} data
  */
-export const drawBarplot = (data, gen, primaryType) => {
-	const type_color_scheme = {
-		Normal: '#A8A77A',
-		Fire: '#EE8130',
-		Water: '#6390F0',
-		Electric: '#F7D02C',
-		Grass: '#7AC74C',
-		Ice: '#96D9D6',
-		Fighting: '#C22E28',
-		Poison: '#A33EA1',
-		Ground: '#E2BF65',
-		Flying: '#A98FF3',
-		Psychic: '#F95587',
-		Bug: '#A6B91A',
-		Rock: '#B6A136',
-		Ghost: '#735797',
-		Dragon: '#6F35FC',
-		Dark: '#705746',
-		Steel: '#B7B7CE',
-		Fairy: '#D685AD',
-	};
-
+export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 	var margin = { top: 30, right: 30, bottom: 70, left: 60 };
 	var width = 920 - margin.left - margin.right;
 	var height = 400 - margin.top - margin.bottom;
@@ -216,10 +196,7 @@ export const drawBarplot = (data, gen, primaryType) => {
 			.style('text-anchor', 'end');
 
 		// Add Y axis
-		var y = d3
-			.scaleLinear()
-			.domain([0, type_distribution[0].amount])
-			.range([height, 0]);
+		var y = d3.scaleLinear().domain([0, type_distribution[0].amount]).range([height, 0]);
 		svg.append('g')
 			.attr('class', 'axisWhite barplotAxis')
 			.call(d3.axisLeft(y))
@@ -241,7 +218,7 @@ export const drawBarplot = (data, gen, primaryType) => {
 			.attr('height', function (d) {
 				return height - y(0);
 			})
-			.attr('fill', (d) => type_color_scheme[d.type])
+			.attr('fill', (d) => type_name_color_scheme[d.type])
 			.on('mouseover', (d) => {
 				// add tooltip
 				div.transition().duration(200).style('opacity', 1);
@@ -250,6 +227,12 @@ export const drawBarplot = (data, gen, primaryType) => {
 						return d3.event.pageX - 40 + 'px';
 					})
 					.style('top', d3.event.pageY - 40 + 'px');
+			})
+			.on('mouseleave', () => div.transition().duration(200).style('opacity', 0))
+			.on('click', (d, i) => {
+				console.log(i);
+				type_names.forEach((type, i) => type === d.type && setPrimaryType(i));
+				div.transition().duration(200).style('opacity', 0);
 			});
 
 		svg.selectAll('rect')

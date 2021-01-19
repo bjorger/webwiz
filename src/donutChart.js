@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-
+import { generation_colors } from './types';
 /**
  * @typedef {Object} Pokemon
  * @property {String} name
@@ -11,7 +11,6 @@ import * as d3 from 'd3';
  */
 
 var old_data = [];
-var old_data_mod = [];
 
 /**
  * @param {Pokemon[]} data
@@ -26,8 +25,6 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 		const gen5 = data.filter((pokemon) => pokemon.generation === 4);
 		const gen6 = data.filter((pokemon) => pokemon.generation === 5);
 
-		const donut_color_scheme = ['#6390F0', '#A8A77A', '#7AC74C', '#F7D02C', '#A6B91A', '#735797'];
-
 		let generations = {
 			'Gen 1': gen1.length,
 			'Gen 2': gen2.length,
@@ -37,15 +34,11 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			'Gen 6': gen6.length,
 		};
 
-		console.log(generations);
-
 		Object.keys(generations).forEach((key) => {
 			if (generations[key] === 0) {
 				delete generations[key];
 			}
 		});
-
-		console.log(generations);
 
 		var width = 450;
 		var height = 350;
@@ -62,7 +55,7 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
 		// set the color scale
-		var color = d3.scaleOrdinal().domain(generations).range(donut_color_scheme);
+		var color = d3.scaleOrdinal().domain(generations).range(generation_colors);
 
 		// Compute the position of each group on the pie:
 		var pie = d3
@@ -89,7 +82,7 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.data(data_ready)
 			.enter()
 			.append('polyline')
-			.attr('stroke', (d, index) => donut_color_scheme[index])
+			.attr('stroke', (d, index) => generation_colors[index])
 			.style('opacity', 1)
 			.style('fill', 'none')
 			.attr('stroke-width', 1)
@@ -172,12 +165,11 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 	};
 	if (primaryType !== undefined) {
 		var new_data = data.filter((Pokemon) => Pokemon.type_1 === primaryType);
-		if (new_data.length !== old_data_mod.length) {
+		if (new_data.length !== data.length) {
 			update(new_data);
 		}
 	} else {
 		if (data.length !== old_data.length || primaryType === undefined) {
-			console.log('hallo');
 			update(data);
 		}
 		old_data = data;

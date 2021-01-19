@@ -8,23 +8,11 @@ import { drawChordDiagram } from './chordDiagram';
 import { drawBubbleplot } from './bubblePlot';
 import logo from './pokemon.png';
 import charizard from './charizard.png';
+import { generation_colors, generation_names, type_color_scheme, type_names } from './types';
 
 export const App = () => {
 	const [gen, setGen] = useState();
 	const [primaryType, setPrimaryType] = useState();
-
-	/**
-	 * @typedef {Object} Pokemon
-	 * @property {String} name
-	 * @property {Number} type_1
-	 * @property {Number} type_2
-	 * @property {Number} total
-	 * @property {Number} generation
-	 * @property {Number} legendary
-	 * @property {Number} defense
-	 * @property {Number} attack
-	 * @property {Number} hp
-	 */
 
 	useEffect(() => {
 		d3.csv(data, (data) => {
@@ -42,7 +30,7 @@ export const App = () => {
 				});
 			});
 			drawDonutChart(data, setGen, gen, primaryType);
-			drawBarplot(data, gen, primaryType);
+			drawBarplot(data, gen, primaryType, setPrimaryType);
 			drawChordDiagram(data, gen, setPrimaryType, primaryType);
 			drawBubbleplot(data, gen);
 		});
@@ -52,6 +40,36 @@ export const App = () => {
 		<div className="App">
 			<div className="header">
 				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo" />
+				{gen >= 0 ? (
+					<div className="option option1">
+						Applied Generation Filter:{' '}
+						<span style={{ color: generation_colors[gen] }}>{generation_names[gen]} </span>
+					</div>
+				) : (
+					''
+				)}
+				{primaryType >= 0 ? (
+					<div className="option option2">
+						Applied Primary Type Filter:{' '}
+						<span style={{ color: type_color_scheme[primaryType] }}>{type_names[primaryType]}</span>
+					</div>
+				) : (
+					''
+				)}
+				{primaryType >= 0 || gen >= 0 ? (
+					<div className="resetFilterBtn">
+						<button
+							onClick={() => {
+								setGen(undefined);
+								setPrimaryType(undefined);
+							}}
+						>
+							Reset Filter
+						</button>
+					</div>
+				) : (
+					''
+				)}
 			</div>
 			<div className="mid">
 				<div className="dashboardCard">

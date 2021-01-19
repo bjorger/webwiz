@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { type_names, type_color_scheme } from './types';
 
 /**
  * @typedef {Object} Pokemon
@@ -17,48 +18,6 @@ var old_data = [];
  * @param {Pokemon[]} data
  */
 export const drawBubbleplot = (data, gen) => {
-	const type_color_scheme = [
-		'#A8A77A',
-		'#EE8130',
-		'#6390F0',
-		'#F7D02C',
-		'#7AC74C',
-		'#96D9D6',
-		'#C22E28',
-		'#A33EA1',
-		'#E2BF65',
-		'#A98FF3',
-		'#F95587',
-		'#A6B91A',
-		'#B6A136',
-		'#735797',
-		'#6F35FC',
-		'#705746',
-		'#B7B7CE',
-		'#D685AD',
-	];
-
-	const type_names = [
-		'Normal',
-		'Fire',
-		'Water',
-		'Electric',
-		'Grass',
-		'Ice',
-		'Fighting',
-		'Poison',
-		'Ground',
-		'Flying',
-		'Psychic',
-		'Bug',
-		'Rock',
-		'Ghost',
-		'Dragon',
-		'Dark',
-		'Steel',
-		'Fairy',
-	];
-
 	const update = (data) => {
 		d3.select('#bubblePlot').selectAll('svg').remove();
 		const legendary_pokemon = data.filter((Pokemon) => Pokemon.legendary === 1);
@@ -184,8 +143,6 @@ export const drawBubbleplot = (data, gen) => {
 			var newX = d3.event.transform.rescaleX(x);
 			var newY = d3.event.transform.rescaleY(y);
 
-			console.log('updateChart');
-
 			xAxis.remove();
 			yAxis.remove();
 
@@ -216,16 +173,12 @@ export const drawBubbleplot = (data, gen) => {
 	};
 
 	if (gen !== undefined) {
-		update(data.filter((Pokemon) => Pokemon.generation === gen));
+		var new_data = data.filter((Pokemon) => Pokemon.generation === gen);
+		if (new_data.length !== data.length) {
+			update(new_data);
+		}
 	} else {
-		if (data.length !== old_data.length) update(data);
+		if (data.length !== old_data.length || gen === undefined) update(data);
 		old_data = data;
 	}
 };
-
-/*
-
-			.on('mouseover', showTooltip)
-			.on('mousemove', moveTooltip)
-			.on('mouseleave', hideTooltip)
-*/

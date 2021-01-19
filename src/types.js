@@ -1,0 +1,73 @@
+export const type_names = [
+	'Normal',
+	'Fire',
+	'Water',
+	'Electric',
+	'Grass',
+	'Ice',
+	'Fighting',
+	'Poison',
+	'Ground',
+	'Flying',
+	'Psychic',
+	'Bug',
+	'Rock',
+	'Ghost',
+	'Dragon',
+	'Dark',
+	'Steel',
+	'Fairy',
+];
+
+export const type_name_color_scheme = {
+	Normal: '#A8A77A',
+	Fire: '#EE8130',
+	Water: '#6390F0',
+	Electric: '#F7D02C',
+	Grass: '#7AC74C',
+	Ice: '#96D9D6',
+	Fighting: '#C22E28',
+	Poison: '#A33EA1',
+	Ground: '#E2BF65',
+	Flying: '#A98FF3',
+	Psychic: '#F95587',
+	Bug: '#A6B91A',
+	Rock: '#B6A136',
+	Ghost: '#735797',
+	Dragon: '#6F35FC',
+	Dark: '#705746',
+	Steel: '#B7B7CE',
+	Fairy: '#D685AD',
+};
+
+export const generation_colors = ['#6390F0', '#A8A77A', '#7AC74C', '#F7D02C', '#A6B91A', '#735797'];
+
+export const generation_names = [
+	'Generation 1',
+	'Generation 2',
+	'Generation 3',
+	'Generation 4',
+	'Generation 5',
+	'Generation 6',
+];
+
+export const type_color_scheme = [
+    '#A8A77A',
+    '#EE8130',
+    '#6390F0',
+    '#F7D02C',
+    '#7AC74C',
+    '#96D9D6',
+    '#C22E28',
+    '#A33EA1',
+    '#E2BF65',
+    '#A98FF3',
+    '#F95587',
+    '#A6B91A',
+    '#B6A136',
+    '#735797',
+    '#6F35FC',
+    '#705746',
+    '#B7B7CE',
+    '#D685AD',
+];
