@@ -175,9 +175,8 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 		if (new_data.length !== old_data_mod.length) {
 			update(new_data);
 		}
-		old_data_mod = new_data;
 	} else {
-		if (data.length !== old_data.length) {
+		if (data.length !== old_data.length || primaryType === undefined) {
 			console.log('hallo');
 			update(data);
 		}
