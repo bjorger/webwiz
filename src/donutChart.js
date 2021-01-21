@@ -77,6 +77,11 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.innerRadius(radius * 0.9)
 			.outerRadius(radius * 0.9);
 
+		var arcOver = d3
+			.arc()
+			.innerRadius(radius * 0.4)
+			.outerRadius(radius * 0.85);
+
 		// Add the polylines between chart and labels:
 		svg.selectAll('allPolylines')
 			.data(data_ready)
@@ -101,7 +106,6 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.enter()
 			.append('path')
 			.attr('class', 'donutArc')
-			.attr('d', arc)
 			.attr('fill', function (d) {
 				return color(d.data.key);
 			})
@@ -120,14 +124,29 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 				return i;
 			})
 			.duration(800)
-			.attrTween('d', function (d) {
+			.attrTween('d', function (d, index) {
 				var i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
 				return function (t) {
 					d.endAngle = i(t);
+					if (gen !== undefined) {
+						if (gen === index) {
+							return arcOver(d);
+						}
+					}
 					return arc(d);
 				};
 			})
-			.style('opacity', 1);
+			.style('opacity', 1)
+			.on('end', function (d, i) {
+				d3.select(this).on('mouseover', function (d) {
+					d3.select(this).transition().duration(800).attr('d', arcOver);
+				});
+				d3.select(this).on('mouseleave', function (d) {
+					if (gen !== d.index) {
+						d3.select(this).transition().duration(800).attr('d', arc);
+					}
+				});
+			});
 
 		// Now add the annotation. Use the centroid method to get the best coordinates
 		svg.selectAll('mySlices')
