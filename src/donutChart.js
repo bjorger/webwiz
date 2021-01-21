@@ -40,12 +40,12 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			}
 		});
 
-		var width = 450;
-		var height = 350;
+		var width = 400;
+		var height = 300;
 		var margin = 40;
 
 		// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-		var radius = Math.min(width, 450) / 2 - margin;
+		var radius = 400 / 2 - margin;
 		var svg = d3
 			.select('#pieChart')
 			.append('svg')

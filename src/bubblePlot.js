@@ -24,7 +24,7 @@ export const drawBubbleplot = (data, gen) => {
 		// set the dimensions and margins of the graph
 		var margin = { top: 10, right: 20, bottom: 30, left: 50 };
 		var width = 500 - margin.left - margin.right;
-		var height = 420 - margin.top - margin.bottom;
+		var height = 350 - margin.top - margin.bottom;
 
 		// -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
 

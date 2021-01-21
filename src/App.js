@@ -39,8 +39,8 @@ export const App = () => {
 	return (
 		<div className="App">
 			<div className="header">
-				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo" />
-				<div className="option option1">
+				<img src={logo} alt="pokemonLogo" />
+				<div className="option">
 					Applied Generation Filter:{' '}
 					<span style={{ color: generation_colors[gen] }}>{generation_names[gen]} </span>
 					<br />
@@ -83,11 +83,11 @@ export const App = () => {
 			<div className="mid">
 				<div className="dashboardCard" style={{ padding: '0 40px' }}>
 					<div className="dashboardCardTitle">Strength of Legendary Pokemon rated by HP, Atk, Def</div>
-					<div id="bubblePlot" style={{ paddingTop: '40px' }}></div>
+					<div id="bubblePlot" style={{ paddingTop: '20px' }}></div>
 				</div>
-				<div className="dashboardCard" style={{ width: '850px' }}>
+				<div className="dashboardCard" style={{ width: '710px' }}>
 					<div className="dashboardCardTitle">Link between Primary and Secondary Type</div>
-					<div id="chordDiagram"></div>
+					<div style={{paddingTop: '5px'}} id="chordDiagram"></div>
 				</div>
 			</div>
 			<div className="charizard">

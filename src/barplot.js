@@ -16,8 +16,8 @@ import { type_names, type_name_color_scheme } from './types';
  */
 export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 	var margin = { top: 30, right: 30, bottom: 70, left: 60 };
-	var width = 920 - margin.left - margin.right;
-	var height = 400 - margin.top - margin.bottom;
+	var width = 800 - margin.left - margin.right;
+	var height = 350 - margin.top - margin.bottom;
 
 	var div = d3.select('#barChart').append('div').attr('class', 'tooltip').style('opacity', 0);
 
@@ -192,7 +192,7 @@ export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 			.call(d3.axisBottom(x))
 			.selectAll('text')
 			.attr('fill', 'white')
-			.attr('font-size', '15px')
+			.attr('font-size', '12px')
 			.attr('transform', 'translate(-10,0)rotate(-45)')
 			.style('text-anchor', 'end');
 
@@ -202,7 +202,7 @@ export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 			.attr('class', 'axisWhite barplotAxis')
 			.call(d3.axisLeft(y))
 			.selectAll('text')
-			.attr('font-size', '15px')
+			.attr('font-size', '12px')
 			.attr('fill', 'white');
 
 		// Bars

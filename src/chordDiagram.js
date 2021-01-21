@@ -38,8 +38,8 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 		const type_matrix = createChordMatrix(data);
 		var margin = { left: 90, top: 90, right: 90, bottom: 90 };
 		var width = 700 - margin.left - margin.right; // more flexibility: Math.min(window.innerWidth, 1000)
-		var height = 500 - margin.top - margin.bottom; // same: Math.min(window.innerWidth, 1000)
-		var innerRadius = 600 * 0.35;
+		var height = 350 - margin.top - margin.bottom; // same: Math.min(window.innerWidth, 1000)
+		var innerRadius = 450 * 0.35;
 		var outerRadius = innerRadius * 1.1;
 		var clicked = false;
 
@@ -122,12 +122,66 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 		// Legend
 		// Add one dot in the legend for each name.
 		svg.selectAll('mydots')
-			.data(type_names)
+			.data(type_names.filter((type, i) => i >= 9))
 			.enter()
 			.append('circle')
-			.attr('cx', 260)
-			.attr('cy', function (d, i) {
-				return -230 + i * 25;
+			.attr('id', (d, i) => i)
+			.attr('cx', 220)
+			.attr('cy', function (d, index) {
+				return -110 + index * 25;
+			}) // 100 is where the first dot appears. 25 is the distance between dots
+			.attr('r', 7)
+			.style('fill', function (d, index) {
+				return type_color_scheme[index+9];
+			})
+			.on('mouseover', fade())
+			.on('mouseout', fade())
+			.on('click', (d, i) => {
+				if (primaryType === i) {
+					setPrimaryType(undefined);
+				} else {
+					setPrimaryType(i);
+				}
+			});
+
+		// Add one dot in the legend for each name.
+		svg.selectAll('mylabels')
+			.data(type_names.filter((type, i) => i >= 9))
+			.enter()
+			.append('text')
+			.attr('class', 'chordLabelText')
+			.attr('x', 240)
+			.attr('y', function (d, i) {
+				return -110 + i * 25;
+			}) // 100 is where the first dot appears. 25 is the distance between dots
+			.style('fill', function (d, index) {
+				return type_color_scheme[index+9];
+			})
+			.text(function (d, index) {
+				return d;
+			})
+			.attr('text-anchor', 'left')
+			.style('alignment-baseline', 'middle')
+			.on('mouseover', fade())
+			.on('mouseout', fade())
+			.on('click', (d, i) => {
+				if (primaryType === i) {
+					setPrimaryType(undefined);
+				} else {
+					setPrimaryType(i);
+				}
+			});
+
+		// Legend
+		// Add one dot in the legend for each name.
+		svg.selectAll('mydots')
+			.data(type_names.filter((type, i) => i < 9))
+			.enter()
+			.append('circle')
+			.attr('id', (d, i) => i)
+			.attr('cx', -300)
+			.attr('cy', function (d, index) {
+				return -110 + index * 25;
 			}) // 100 is where the first dot appears. 25 is the distance between dots
 			.attr('r', 7)
 			.style('fill', function (d, index) {
@@ -145,18 +199,18 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 
 		// Add one dot in the legend for each name.
 		svg.selectAll('mylabels')
-			.data(type_names)
+			.data(type_names.filter((type, i) => i < 9))
 			.enter()
 			.append('text')
 			.attr('class', 'chordLabelText')
-			.attr('x', 280)
+			.attr('x', -280)
 			.attr('y', function (d, i) {
-				return -230 + i * 25;
+				return -110 + i * 25;
 			}) // 100 is where the first dot appears. 25 is the distance between dots
 			.style('fill', function (d, index) {
 				return type_color_scheme[index];
 			})
-			.text(function (d) {
+			.text(function (d, index) {
 				return d;
 			})
 			.attr('text-anchor', 'left')
