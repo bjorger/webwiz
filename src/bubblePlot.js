@@ -66,6 +66,7 @@ export const drawBubbleplot = (data, gen) => {
 			.call(d3.axisBottom(x).tickSize(0))
 			.attr('class', 'axisWhite')
 			.selectAll('text')
+			.attr('font-size', '15px')
 			.attr('fill', 'white');
 
 		// Add Y axis
@@ -77,6 +78,7 @@ export const drawBubbleplot = (data, gen) => {
 			.call(d3.axisLeft(y).tickSize(0))
 			.attr('class', 'axisWhite')
 			.selectAll('text')
+			.attr('font-size', '15px')
 			.attr('fill', 'white');
 
 		// Add a clipPath: everything out of this area won't be drawn.
@@ -151,6 +153,7 @@ export const drawBubbleplot = (data, gen) => {
 				.attr('transform', 'translate(0,' + height + ')')
 				.call(d3.axisBottom(newX).tickSize(0))
 				.attr('class', 'axisWhite')
+				.attr('font-size', '15px')
 				.selectAll('text')
 				.attr('fill', 'white');
 			yAxis = svg
@@ -158,6 +161,7 @@ export const drawBubbleplot = (data, gen) => {
 				.call(d3.axisLeft(newY).tickSize(0))
 				.attr('class', 'axisWhite')
 				.selectAll('text')
+				.attr('font-size', '15px')
 				.attr('fill', 'white');
 
 			// update circle position

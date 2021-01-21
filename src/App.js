@@ -60,7 +60,19 @@ export const App = () => {
 			</div>
 			<div className="mid">
 				<div className="dashboardCard">
-					<div className="dashboardCardTitle">Distribution of Pokemon by Type</div>
+					<div className="dashboardCardTitle">
+						Distribution of Pokemon
+						{primaryType === undefined ? (
+							' by Primary '
+						) : (
+							<span>
+								{' with'}
+								<span style={{ color: type_color_scheme[primaryType] }}> {type_names[primaryType]} </span>
+								{'as Secondary '}
+							</span>
+						)}
+						 Type
+					</div>
 					<div id="barChart"></div>
 				</div>
 				<div className="dashboardCard">

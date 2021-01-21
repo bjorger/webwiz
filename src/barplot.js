@@ -192,6 +192,7 @@ export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 			.call(d3.axisBottom(x))
 			.selectAll('text')
 			.attr('fill', 'white')
+			.attr('font-size', '15px')
 			.attr('transform', 'translate(-10,0)rotate(-45)')
 			.style('text-anchor', 'end');
 
@@ -201,6 +202,7 @@ export const drawBarplot = (data, gen, primaryType, setPrimaryType) => {
 			.attr('class', 'axisWhite barplotAxis')
 			.call(d3.axisLeft(y))
 			.selectAll('text')
+			.attr('font-size', '15px')
 			.attr('fill', 'white');
 
 		// Bars
