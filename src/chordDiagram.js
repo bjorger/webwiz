@@ -137,7 +137,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 			.on('mouseover', fadeSecond())
 			.on('mouseout', fadeSecond())
 			.on('click', (d, i) => {
-				if (primaryType === i) {
+				if (primaryType === i + 9) {
 					setPrimaryType(undefined);
 				} else {
 					setPrimaryType(i + 9);
@@ -165,7 +165,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 			.on('mouseover', fadeSecond())
 			.on('mouseout', fadeSecond())
 			.on('click', (d, i) => {
-				if (primaryType === i) {
+				if (primaryType === i + 9) {
 					setPrimaryType(undefined);
 				} else {
 					setPrimaryType(i + 9);
