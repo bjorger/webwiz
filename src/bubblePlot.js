@@ -30,11 +30,12 @@ export const drawBubbleplot = (data, gen) => {
 
 		var showTooltip = function (d) {
 			if (clicked) {
-				tooltip.transition().duration(50).style('opacity', 0);
+				tooltip.transition().duration(50).style('opacity', 0).style('pointer-events', 'none');
 			} else {
 				tooltip.transition().duration(200);
 				tooltip
 					.style('opacity', 1)
+					.style('pointer-events', 'none')
 					.html(
 						`${d.name}<br/>Health: ${d.hp} <br/>Attack: ${d.attack}<br/>Defense: ${d.defense}<br/>Type: ${
 							type_names[d.type_1]

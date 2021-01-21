@@ -140,6 +140,16 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 			.attr('transform', function (d) {
 				return 'translate(' + arc.centroid(d) + ')';
 			})
+			.on('click', (d) => {
+				let currentGen = +d.data.key.replace(/^\D+/g, '') - 1;
+				// -1 because we take the string values -> Gen 1 is 0 etc..
+				if (gen === currentGen) {
+					setGen(undefined);
+				} else {
+					setGen(currentGen);
+				}
+				return;
+			})
 			.style('text-anchor', 'middle')
 			.style('font-size', 17)
 			.style('font-weight', 'bold')

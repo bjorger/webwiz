@@ -78,6 +78,10 @@ body {
 	width: 300px;
 }
 
+text{
+	cursor: pointer;
+}
+
 .resetFilterBtn button {
 	margin-top: 10px;
 	cursor: pointer;
