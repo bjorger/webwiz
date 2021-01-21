@@ -140,7 +140,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 				if (primaryType === i) {
 					setPrimaryType(undefined);
 				} else {
-					setPrimaryType(i);
+					setPrimaryType(i+9);
 				}
 			});
 
@@ -168,7 +168,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 				if (primaryType === i) {
 					setPrimaryType(undefined);
 				} else {
-					setPrimaryType(i);
+					setPrimaryType(i+9);
 				}
 			});
 
