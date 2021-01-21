@@ -132,15 +132,15 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 			}) // 100 is where the first dot appears. 25 is the distance between dots
 			.attr('r', 7)
 			.style('fill', function (d, index) {
-				return type_color_scheme[index+9];
+				return type_color_scheme[index + 9];
 			})
-			.on('mouseover', fade())
-			.on('mouseout', fade())
+			.on('mouseover', fadeSecond())
+			.on('mouseout', fadeSecond())
 			.on('click', (d, i) => {
 				if (primaryType === i) {
 					setPrimaryType(undefined);
 				} else {
-					setPrimaryType(i+9);
+					setPrimaryType(i + 9);
 				}
 			});
 
@@ -155,20 +155,20 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 				return -110 + i * 25;
 			}) // 100 is where the first dot appears. 25 is the distance between dots
 			.style('fill', function (d, index) {
-				return type_color_scheme[index+9];
+				return type_color_scheme[index + 9];
 			})
 			.text(function (d, index) {
 				return d;
 			})
 			.attr('text-anchor', 'left')
 			.style('alignment-baseline', 'middle')
-			.on('mouseover', fade())
-			.on('mouseout', fade())
+			.on('mouseover', fadeSecond())
+			.on('mouseout', fadeSecond())
 			.on('click', (d, i) => {
 				if (primaryType === i) {
 					setPrimaryType(undefined);
 				} else {
-					setPrimaryType(i+9);
+					setPrimaryType(i + 9);
 				}
 			});
 
@@ -231,6 +231,19 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 				svg.selectAll('path.chord')
 					.filter(function (d) {
 						return d.source.index !== i && d.target.index !== i;
+					})
+					.transition(50)
+					.style('opacity', clicked ? 1 : 0.1);
+				clicked = !clicked;
+			};
+		} //fade
+
+		//Returns an event handler for fading a given chord group.
+		function fadeSecond() {
+			return function (d, i) {
+				svg.selectAll('path.chord')
+					.filter(function (d) {
+						return d.source.index !== i+9 && d.target.index !== i+9;
 					})
 					.transition(50)
 					.style('opacity', clicked ? 1 : 0.1);
