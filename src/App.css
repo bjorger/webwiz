@@ -68,31 +68,18 @@ body {
 	padding: 10px 0;
 }
 
-.option1 {
-	top: 40px;
-	right: 200px;
-}
-
-.option2 {
-	top: 65px;
-	right: 224px;
-}
-
-.resetFilterBtn {
-	position: absolute;
-	right: 395px;
-	top: 100px;
-}
-
 .option{
 	padding: 3px 0;
 	color: white;
 	font-weight: bold;
 	position: absolute;
-
+	top: 40px;
+	right: 200px;
+	width: 300px;
 }
 
 .resetFilterBtn button {
+	margin-top: 10px;
 	cursor: pointer;
 	padding: 5px;
 	background-color: #2c2c2c;

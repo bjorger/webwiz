@@ -40,23 +40,12 @@ export const App = () => {
 		<div className="App">
 			<div className="header">
 				<img src={logo} style={{ width: '250px', padding: '10px' }} alt="pokemonLogo" />
-				{gen >= 0 ? (
-					<div className="option option1">
-						Applied Generation Filter:{' '}
-						<span style={{ color: generation_colors[gen] }}>{generation_names[gen]} </span>
-					</div>
-				) : (
-					''
-				)}
-				{primaryType >= 0 ? (
-					<div className="option option2">
-						Applied Primary Type Filter:{' '}
-						<span style={{ color: type_color_scheme[primaryType] }}>{type_names[primaryType]}</span>
-					</div>
-				) : (
-					''
-				)}
-				{primaryType >= 0 || gen >= 0 ? (
+				<div className="option option1">
+					Applied Generation Filter:{' '}
+					<span style={{ color: generation_colors[gen] }}>{generation_names[gen]} </span>
+					<br />
+					Applied Primary Type Filter:{' '}
+					<span style={{ color: type_color_scheme[primaryType] }}>{type_names[primaryType]}</span>
 					<div className="resetFilterBtn">
 						<button
 							onClick={() => {
@@ -67,9 +56,7 @@ export const App = () => {
 							Reset Filter
 						</button>
 					</div>
-				) : (
-					''
-				)}
+				</div>
 			</div>
 			<div className="mid">
 				<div className="dashboardCard">
