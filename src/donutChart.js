@@ -117,7 +117,6 @@ export const drawDonutChart = (data, setGen, gen, primaryType) => {
 				} else {
 					setGen(currentGen);
 				}
-				return;
 			})
 			.transition()
 			.delay(function (d, i) {
