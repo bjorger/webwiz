@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { type_names, type_color_scheme } from './types';
+import { type_names, generation_colors } from './types';
 
 /**
  * @typedef {Object} Pokemon
@@ -127,7 +127,7 @@ export const drawBubbleplot = (data, gen) => {
 				return z(0);
 			})
 			.style('fill', function (d) {
-				return type_color_scheme[d.type_1];
+				return generation_colors[d.generation];
 			})
 			.style('opacity', '0.7')
 			.attr('stroke', 'white')
