@@ -1,3 +1,3 @@
 # webwiz
 
-!()[./teaser.png]
+![](./teaser.png)
