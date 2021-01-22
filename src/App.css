@@ -137,3 +137,7 @@ text{
 	left: 0;
 	z-index: -1;
 }
+
+rect{
+	cursor: pointer;
+}

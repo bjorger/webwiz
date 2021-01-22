@@ -73,7 +73,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 				return type_color_scheme[i];
 			})
 			.style('stroke', 'black')
-			.attr('d', arc);
+			.attr('d', arc)
 
 		// Add the links between groups
 		svg.datum(res)
@@ -243,7 +243,7 @@ export const drawChordDiagram = (data, gen, setPrimaryType, primaryType) => {
 			return function (d, i) {
 				svg.selectAll('path.chord')
 					.filter(function (d) {
-						return d.source.index !== i+9 && d.target.index !== i+9;
+						return d.source.index !== i + 9 && d.target.index !== i + 9;
 					})
 					.transition(50)
 					.style('opacity', clicked ? 1 : 0.1);
